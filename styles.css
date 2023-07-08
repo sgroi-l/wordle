@@ -18,6 +18,17 @@
     overflow-y: hidden;
   }
 
+  .title {
+    font-size: var(--large-font);
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #3a3a3c;
+  }
+
   #game {
     margin: auto;
     margin-top: 5rem;
