@@ -3,8 +3,11 @@ import { handleKeyPress } from "./utils/keyboard.js";
 document.addEventListener('keyup', handleKeyPress);
 
 
-const mobileInput = document.querySelector('#mobileInput');
-mobileInput.addEventListener('input', handleMobileInput);
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileInput = document.querySelector('#mobileInput');
+    mobileInput.addEventListener('input', handleMobileInput);
+    mobileInput.focus();
+  });
 
 function handleMobileInput(event) {
   const key = event.target.value.slice(-1);
