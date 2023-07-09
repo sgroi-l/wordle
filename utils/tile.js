@@ -1,6 +1,6 @@
 const firstRow = document.querySelector('#row1');
 
-const answer = ['l', 'i', 'm', 'i', 'o'];
+const answer = ['c', 'o', 'd', 'e', 'r'];
 
 export function evaluateAnswer() {
   const filledTiles = Array.from(firstRow.children).map((tile) => tile.textContent.trim());
