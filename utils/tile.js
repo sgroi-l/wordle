@@ -5,17 +5,25 @@ const answer = ['l', 'i', 'm', 'i', 'o'];
 export function evaluateAnswer() {
   const filledTiles = Array.from(firstRow.children).map((tile) => tile.textContent.trim());
 
-  if (filledTiles.length === 5) {
-    let correctPositionTiles = [];
-    let correctLetterTiles = [];
+    
+    let correctPositionTiles = new Array(5);
+    let correctLetterTiles = new Array(5);
+    let remainingLetters = [...answer];
 
-    for (let i = 0; i < filledTiles.length; i++) {
-      if (filledTiles[i].toUpperCase() === answer[i].toUpperCase()) {
-        correctPositionTiles.push(i);
-      } else if (answer.includes(filledTiles[i])) {
-        correctLetterTiles.push(i);
+    filledTiles.map((filledTile, index) => {
+      const positionOfCurrentTileInAnswerIfExists = remainingLetters.indexOf(filledTile);
+      console.log(remainingLetters)
+      if (positionOfCurrentTileInAnswerIfExists < 0) {
+        return;
       }
-    }
+      if (positionOfCurrentTileInAnswerIfExists === index) {
+        correctPositionTiles[index] = filledTile;
+        remainingLetters[positionOfCurrentTileInAnswerIfExists] = '';
+      } else if (positionOfCurrentTileInAnswerIfExists > -1) {
+        correctLetterTiles[index] = filledTile;
+        remainingLetters[positionOfCurrentTileInAnswerIfExists] = '';       
+      }
+    })
 
     const firstRowTilesElements = document.querySelector('#row1').querySelectorAll('.tile');
 
@@ -25,10 +33,10 @@ export function evaluateAnswer() {
     firstRowTilesElements.forEach((tile, index) => {
       tile.style.backgroundColor = '';
       setTimeout(() => {
-        if (correctPositionTiles.includes(index)) {
-          tile.style.backgroundColor = '#538d4e';
-        } else if (correctLetterTiles.includes(index)) {
+        if (correctLetterTiles[index]) {
           tile.style.backgroundColor = '#b59f3b';
+        } else if (correctPositionTiles[index]) {
+          tile.style.backgroundColor = '#538d4e';
         } else {
           tile.style.backgroundColor = '#3a3a3c';
       
@@ -36,7 +44,6 @@ export function evaluateAnswer() {
       }, currentDelay);
       currentDelay += delayIncrement;
     });
-  }
 }
 
 export function fillTile(key) {
